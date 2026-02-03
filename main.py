@@ -1,7 +1,8 @@
 from fastapi import FastAPI
-from database import engine, Base
+from core.database import engine, Base
 from routers.book import router as book_router
-from config import PROJECT_NAME, PROJECT_VERSION
+from core.config import PROJECT_NAME, PROJECT_VERSION
+from models import book
 
 Base.metadata.create_all(bind=engine)
 

@@ -11,7 +11,10 @@ class BookBase(BaseModel):
 
 
 class BookCreate(BaseModel):
-    pass
+    title: str
+    author: str
+    price: float
+    published_date: date
 
 
 class BookResponse(BookBase):

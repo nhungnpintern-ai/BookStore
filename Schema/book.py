@@ -6,15 +6,15 @@ from typing import Optional
 class BookBase(BaseModel):
     title: str
     author: str
-    price: float
+    price: float = Field(gt=0)
     published_date: Optional[date] = None
 
 
 class BookCreate(BaseModel):
     title: str
     author: str
-    price: float
-    published_date: date
+    price: float = Field(gt=0)
+    published_date: date | None = None
 
 
 class BookResponse(BookBase):

@@ -52,7 +52,7 @@ pip install passlib[bcrypt] python-jose[cryptography]
 Cách sử dụng Access Token
 Authorization: Bearer <access_token>
 Quy tắc truy cập API
-| Method | Endpoint |
+ccd| Method | Endpoint |
 | ------ | ----------- |
 | GET | /books |
 | GET | /books/{id} |

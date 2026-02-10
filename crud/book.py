@@ -31,29 +31,24 @@ def update_book(
     book_update: BookUpdate,
     user_id: int,
 ):
-    book = db.query(Book).filter(Book.id == book_id).first()
+    book = db.query(Book).filter(Book.id == book_id, Book.owner_id == user_id).first()
     if not book:
         return None
-
-    update_data = {
-        k: v
-        for k, v in book_update.dict(exclude_unset=True).items()
-        if v not in ("string", "", None)
-    }
-
-    for field, value in update_data.items():
-        setattr(book, field, value)
+    for key, value in book_update.dict(exclude_unset=True).items():
+        setattr(book, key, value)
 
     db.commit()
     db.refresh(book)
     return book
 
 
-def delete_book(db: Session, book_id: int) -> Book | None:
-    db_book = db.query(Book).filter(Book.id == book_id).first()
+def delete_book(db: Session, book_id: int, user_id: int):
+    db_book = (
+        db.query(Book).filter(Book.id == book_id, Book.owner_id == user_id).first()
+    )
     if not db_book:
-        return None
+        return False
 
     db.delete(db_book)
     db.commit()
-    return db_book
+    return True
